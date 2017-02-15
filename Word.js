@@ -1,7 +1,6 @@
 var Letter = require('./Letter.js');
 
 
-
 function Word(word) {
 	this.word = word;
 	this.letters = [];
@@ -21,19 +20,23 @@ function Word(word) {
 	this.updateLetter = function(guess) {
 		// check all the letter objects and see if the guess matches
 		// if so, update that letter.found to equal true.
+		this.guessLimit++;
 		for (var i=0; i<this.letters.length; i++) {
-			if (this.letters[i].letter == guess) this.letters[i].found = true;
+			if (this.letters[i].letter == guess) {
+					this.letters[i].found = true;
+			}
 		}
+
+	},
+	this.guessLimit = 0,
+	this.wordIsComplete = function(){
+		for (var i=0; i<this.letters.length; i++) {
+			if (this.letters[i].found == false) {
+				return false;
+			}
+		}
+		return true;
 	}
 };
 
 module.exports = Word;
-
-
-// var dog = new Word('dog');
-// console.log(dog.letters);
-
-// dog.init();
-// console.log(dog.letters);
-// console.log(dog.display());
-
